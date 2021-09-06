@@ -37,5 +37,25 @@ namespace PlatformService.Controllers
             }
         }
 
+
+        [HttpGet("{id}")]
+        public ActionResult<PlatformReadDto> GetPlatfromById(int id)
+        {
+            try
+            {
+                var platfrom = _platformRepo.GetPlatform(id);
+                if (platfrom != null)
+                {
+                    return Ok(_mapper.Map<PlatformReadDto>(platfrom));
+                }
+
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
