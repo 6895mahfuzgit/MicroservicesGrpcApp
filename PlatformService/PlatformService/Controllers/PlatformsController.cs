@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlatformService.Data;
 using PlatformService.Dtos;
+using PlatformService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace PlatformService.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetPlatfromById")]
         public ActionResult<PlatformReadDto> GetPlatfromById(int id)
         {
             try
@@ -57,5 +58,23 @@ namespace PlatformService.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult<PlatformReadDto> CreaePlatfrom(PlatfromCreateDto platfromDto)
+        {
+            try
+            {
+                var platfromToSave = _mapper.Map<Platform>(platfromDto);
+                _platformRepo.CreatePlatfrom(platfromToSave);
+                _platformRepo.SaveChanges();
+
+                var plafromResult = _mapper.Map<PlatformReadDto>(platfromToSave);
+                return CreatedAtRoute(nameof(GetPlatfromById), new { Id = plafromResult.Id }, plafromResult);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
     }
 }
