@@ -1,3 +1,19 @@
 docker --version
 
+#Build in Docker
 docker build -t 6895mahfuz/platformservice .
+
+#Run or Create a Container in Docker File
+docker run -p 8080:80 -d 6895mahfuz/platformservice
+
+#See All Running Container in Docker
+docker ps
+
+#Stop  Docker Container
+docker stop <container Id>
+
+#Start existing Docker container
+docker start <container Id>
+
+#Push an Image to DockerHup
+docker  push <my hunId>/<Image Name>
