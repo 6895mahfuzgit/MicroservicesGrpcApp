@@ -3,3 +3,10 @@ dotnet add package Microsoft.EntityFrameworkCore --version 5.0.8
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 5.0.8
 dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 5.0.8
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 5.0.8
+
+
+kubectl version
+kubectl apply -f <yml file>
+kubectl get deployments
+kubectl get pods
+kubectl delete deployments <deployment-name>
