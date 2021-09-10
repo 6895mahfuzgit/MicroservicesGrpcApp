@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PlatformService.Data;
 using PlatformService.Models;
+using PlatformService.SyncDataServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,8 @@ namespace PlatformService
 
             services.AddDbContext<ApplicationDBContext>(op => op.UseInMemoryDatabase("InMem"));
             services.AddScoped<IPlatformRepo, PlatformRepo>();
+
+            services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 
             services.AddControllers();
 

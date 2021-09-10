@@ -12,5 +12,25 @@ namespace CommandService.Controllers
     public class PlatformsController : ControllerBase
     {
 
+        public PlatformsController()
+        {
+
+        }
+
+        [HttpPost]
+        public ActionResult TestIndex()
+        {
+            try
+            {
+                Console.WriteLine("Index Action ");
+                return Ok("Requested Successfully.");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }
