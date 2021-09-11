@@ -16,7 +16,7 @@ spec:
            - name:  platfromservice
              image: 6895mahfuz/commandservice:latest
 ---
-apiVersion: apps/v1
+apiVersion: v1
 kind: Service
 metadata:
    name:  commands-clusterip-srv
