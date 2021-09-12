@@ -13,5 +13,7 @@ kubectl delete deployments <deployment-name>
 kubectl rollout restart deployment <deployment-name>
 kubectl get namespace
 kubectl get pods --namespace=ingress-nginx
+ kubectl  get services
+ kubectl get services --namespace=ingress-nginx
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/cloud/deploy.yaml
