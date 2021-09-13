@@ -18,5 +18,6 @@ kubectl get services --namespace=ingress-nginx
 kubectl get storageclass
 kubectl get pvc
 kubectl delete pvc <pvc_name>
+kubectl create secret generic mssql --from-literal=SA_PASSWORD="pa550rd!"
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/cloud/deploy.yaml
