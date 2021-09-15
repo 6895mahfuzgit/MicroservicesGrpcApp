@@ -79,7 +79,7 @@ namespace PlatformService
                 endpoints.MapControllers();
             });
 
-            PreparationData.PolulateData(app);
+            PreparationData.PolulateData(app, env.IsProduction());
         }
     }
 }

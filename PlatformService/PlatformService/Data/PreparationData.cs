@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PlatformService.Models;
 using System;
@@ -10,16 +11,31 @@ namespace PlatformService.Data
 {
     public static class PreparationData
     {
-        public static void PolulateData(IApplicationBuilder app)
+        public static void PolulateData(IApplicationBuilder app, bool isProduction)
         {
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                SeedData(serviceScope.ServiceProvider.GetService<ApplicationDBContext>());
+                SeedData(serviceScope.ServiceProvider.GetService<ApplicationDBContext>(), isProduction);
             }
         }
 
-        private static void SeedData(ApplicationDBContext applicationDBContext)
+        private static void SeedData(ApplicationDBContext applicationDBContext, bool isProduction)
         {
+            if (isProduction == true)
+            {
+                Console.WriteLine("Migration Started******");
+                try
+                {
+                    applicationDBContext.Database.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Failed to apply migration????????????");
+                }
+                Console.WriteLine("Migration Ended!!!!!!!!");
+            }
+
+
             if (!applicationDBContext.Platforms.Any())
             {
                 Console.WriteLine("Data Seeding Started");
