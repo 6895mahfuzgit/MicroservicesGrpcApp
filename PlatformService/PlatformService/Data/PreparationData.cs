@@ -21,19 +21,8 @@ namespace PlatformService.Data
 
         private static void SeedData(ApplicationDBContext applicationDBContext, bool isProduction)
         {
-            if (isProduction == true)
-            {
-                Console.WriteLine("Migration Started******");
-                try
-                {
-                    applicationDBContext.Database.Migrate();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Failed to apply migration????????????");
-                }
-                Console.WriteLine("Migration Ended!!!!!!!!");
-            }
+         
+              // applicationDBContext.Database.Migrate();
 
 
             if (!applicationDBContext.Platforms.Any())
