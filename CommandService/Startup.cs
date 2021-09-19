@@ -29,7 +29,7 @@ namespace CommandService
         {
 
             services.AddDbContext<AppDBContext>(op => op.UseInMemoryDatabase("InMem"));
-
+            services.AddScoped<ICommandRepo, CommandRepo>();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
