@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using CommandService.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,9 +14,13 @@ namespace CommandService.Controllers
     public class PlatformsController : ControllerBase
     {
 
-        public PlatformsController()
-        {
+        private readonly ICommandRepo _commandRepo;
+        private readonly IMapper _mapper;
 
+        public PlatformsController(ICommandRepo commandRepo, IMapper mapper)
+        {
+            _commandRepo = commandRepo;
+            _mapper = mapper;
         }
 
         [HttpPost]
