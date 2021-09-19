@@ -31,6 +31,7 @@ namespace CommandService
             services.AddDbContext<AppDBContext>(op => op.UseInMemoryDatabase("InMem"));
 
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CommandService", Version = "v1" });
