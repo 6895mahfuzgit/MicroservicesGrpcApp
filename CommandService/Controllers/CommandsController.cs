@@ -45,7 +45,27 @@ namespace CommandService.Controllers
         }
 
 
+        [HttpGet("{commandId}", Name = "GetCommandForPlatform")]
+        public ActionResult<CommandReadDto> GetCommandForPlatform(int platformId, int commandId)
+        {
+            try
+            {
+                Console.WriteLine($"Called GetCommandForPlatform where PlatfromIs : {platformId}   commandId: {commandId} ");
 
+                if (!_commandRepo.PlatfromExists(platformId))
+                {
+                    return NotFound();
+                }
+
+                var command = _commandRepo.GetCommand(platformId, commandId);
+                return Ok(_mapper.Map<CommandReadDto>(command));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
 
     }
