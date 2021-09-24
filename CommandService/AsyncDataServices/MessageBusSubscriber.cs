@@ -41,7 +41,7 @@ namespace CommandService.AsyncDataServices
             _queueName = _channel.QueueDeclare().QueueName;
             _channel.QueueBind(queue: _queueName,
                                exchange: "trigger",
-                               routingKey: null);
+                               routingKey: "");
 
             Console.WriteLine("Listining on Message Bus....");
 
