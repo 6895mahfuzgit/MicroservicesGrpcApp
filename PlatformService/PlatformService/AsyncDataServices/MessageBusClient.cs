@@ -47,6 +47,7 @@ namespace PlatformService.AsyncDataServices
                 if (_connection.IsOpen)
                 {
                     Console.WriteLine("RabbitMQ Connection Open, Sending message...");
+                    SendMessage(msg);
                 }
                 else
                 {
