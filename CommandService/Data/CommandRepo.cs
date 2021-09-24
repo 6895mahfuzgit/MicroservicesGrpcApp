@@ -109,6 +109,20 @@ namespace CommandService.Data
             }
         }
 
+
+
+        public bool ExternalPlatfromExists(int externalPlatfromId)
+        {
+            try
+            {
+                return _context.Platforms.Any(p => p.ExternalID == externalPlatfromId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public bool SaveChanges()
         {
             try
