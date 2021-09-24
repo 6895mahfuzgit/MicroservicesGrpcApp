@@ -81,7 +81,22 @@ namespace CommandService.Controllers
                     return NotFound();
                 }
 
-                var command = _mapper.Map<Command>(commandDto);
+                //var command = _mapper.Map<Command>(commandDto);
+                Console.WriteLine("Before");
+                Console.WriteLine(platformId);
+                Console.WriteLine(commandDto.HowTo);
+                Console.WriteLine(commandDto.CommandLine);
+
+                var command = new Command
+                {
+                    HowTo = commandDto.HowTo,
+                    CommandLine = commandDto.CommandLine,
+                    PlatformId = platformId
+                };
+
+                Console.WriteLine("After");
+                Console.WriteLine(commandDto.HowTo);
+                Console.WriteLine(commandDto.CommandLine);
 
                 _commandRepo.CreateCommand(platformId, command);
                 _commandRepo.SaveChanges();
