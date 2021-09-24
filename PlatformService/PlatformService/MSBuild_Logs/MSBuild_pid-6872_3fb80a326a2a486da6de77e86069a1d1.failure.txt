@@ -1,0 +1,12 @@
+UNHANDLED EXCEPTIONS FROM PROCESS 6872:
+=====================
+24-Sep-21 10:13:09 PM
+System.OutOfMemoryException: Exception of type 'System.OutOfMemoryException' was thrown.
+   at Microsoft.Build.Shared.ExceptionHandling.DumpExceptionToFile(Exception ex)
+   at Microsoft.Build.BackEnd.NodeEndpointOutOfProcBase.RunReadLoop(Stream localReadPipe, Stream localWritePipe, ConcurrentQueue`1 localPacketQueue, AutoResetEvent localPacketAvailable, AutoResetEvent localTerminatePacketPump)
+   at Microsoft.Build.BackEnd.NodeEndpointOutOfProcBase.PacketPumpProc()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.ThreadHelper.ThreadStart()
+===================
