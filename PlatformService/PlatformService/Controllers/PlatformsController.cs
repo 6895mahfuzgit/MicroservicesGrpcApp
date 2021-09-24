@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PlatformService.AsyncDataServices;
 using PlatformService.Data;
 using PlatformService.Dtos;
 using PlatformService.Models;
@@ -19,12 +20,14 @@ namespace PlatformService.Controllers
         private readonly IPlatformRepo _platformRepo;
         private readonly IMapper _mapper;
         private readonly ICommandDataClient _commandDataClient;
+        private readonly IMessageBusClient _messageBusClient;
 
-        public PlatformsController(IPlatformRepo platformRepo, IMapper mapper, ICommandDataClient commandDataClient)
+        public PlatformsController(IPlatformRepo platformRepo, IMapper mapper, ICommandDataClient commandDataClient, IMessageBusClient messageBusClient)
         {
             _platformRepo = platformRepo;
             _mapper = mapper;
             _commandDataClient = commandDataClient;
+            _messageBusClient = messageBusClient;
         }
 
         [HttpGet]
@@ -72,7 +75,38 @@ namespace PlatformService.Controllers
 
                 var plafromResult = _mapper.Map<PlatformReadDto>(platfromToSave);
 
-                _commandDataClient.SendPlatformToCommand(plafromResult);
+                //Syncr Message send
+                try
+                {
+                    _commandDataClient.SendPlatformToCommand(plafromResult);
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine($"MSG Failed To Send Sync Message From Controller {ex.Message}");
+                }
+
+
+                //Async Message Send
+                try
+                {
+                    try
+                    {
+                        var platfromPublishedDto = _mapper.Map<PlatfromPublishedDto>(plafromResult);
+                        platfromPublishedDto.Event = "Platform_Published";
+                        _messageBusClient.PublishNewPlatform(platfromPublishedDto);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        Console.WriteLine($"MSG Failed To Send Async Message From Controller {ex.Message}");
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
 
                 return CreatedAtRoute(nameof(GetPlatfromById), new { Id = plafromResult.Id }, plafromResult);
             }
