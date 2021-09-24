@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PlatformService.AsyncDataServices;
 using PlatformService.Data;
 using PlatformService.Models;
 using PlatformService.SyncDataServices;
@@ -34,8 +35,8 @@ namespace PlatformService
         {
             //if (_env.IsProduction())
             //{
-                Console.WriteLine("Using Sql Server");
-                services.AddDbContext<ApplicationDBContext>(op => op.UseSqlServer(Configuration.GetConnectionString("PlatformCon")));
+            Console.WriteLine("Using Sql Server");
+            services.AddDbContext<ApplicationDBContext>(op => op.UseSqlServer(Configuration.GetConnectionString("PlatformCon")));
             //}
             //else
             //{
@@ -48,6 +49,7 @@ namespace PlatformService
 
             services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 
+            services.AddSingleton<IMessageBusClient, MessageBusClient>();
             services.AddControllers();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
