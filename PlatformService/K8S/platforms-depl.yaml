@@ -29,5 +29,8 @@ spec:
       port:  80
       protocol: TCP   
       targetPort: 80     
-          
+    - name:  platformgrpc
+      port:  777
+      protocol: TCP   
+      targetPort: 777
           
