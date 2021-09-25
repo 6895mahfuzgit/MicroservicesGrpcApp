@@ -33,7 +33,20 @@ namespace CommandService.SyncDataServices.Grpc
             {
                 var reply = client.GetAllPlatforms(request);
                 Console.WriteLine("Client Worked!!!!!!!!!");
-                return _mapper.Map<IEnumerable<Platform>>(reply);
+                List<Platform> result = new List<Platform>();
+                if (reply.Platform.Any())
+                {
+                    foreach (var item in reply.Platform)
+                    {
+                        Console.WriteLine(item.Name+"    "+ item.PlatformId);
+                        result.Add(new Platform
+                        {
+                            ExternalID=item.PlatformId,
+                            Name=item.Name, 
+                        });
+                    }
+                }
+                return result.ToList();
             }
             catch (Exception ex)
             {
