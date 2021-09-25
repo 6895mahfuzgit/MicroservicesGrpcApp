@@ -12,6 +12,7 @@ using PlatformService.AsyncDataServices;
 using PlatformService.Data;
 using PlatformService.Models;
 using PlatformService.SyncDataServices;
+using PlatformService.SyncDataServices.Grpc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,12 +51,13 @@ namespace PlatformService
             services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 
             services.AddSingleton<IMessageBusClient, MessageBusClient>();
+            services.AddGrpc();
             services.AddControllers();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSwaggerGen(c =>
-            {  
+            {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PlatformService", Version = "v1" });
             });
         }
@@ -79,6 +81,7 @@ namespace PlatformService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<GrpcPlatformService>();
             });
 
             //PreparationData.PolulateData(app, env.IsProduction());
